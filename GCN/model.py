@@ -3,7 +3,7 @@ from keras.layers import Input, Dense
 from keras.optimizers import Adam
 from keras.regularizers import l2
 from GCN.layer import *
-from model.loss import *
+from GCN.loss import *
 
 
 def GCN(hyper):

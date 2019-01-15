@@ -1,7 +1,7 @@
 from keras.callbacks import ModelCheckpoint, EarlyStopping, ReduceLROnPlateau
 from GCN.dataset import Dataset
 from GCN import model as m
-from model.callback import *
+from GCN.callback import *
 from datetime import datetime
 import numpy as np
 import time
