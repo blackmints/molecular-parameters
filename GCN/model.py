@@ -21,9 +21,9 @@ def GCN(hyper):
 
     out = atoms
     for _ in range(num_layers):
-        out = GCNGraphConv(units_conv, activation='relu', kernel_regularizer=l2(5e-4))([out, adjms])
+        out = GCNGraphConv(units_conv, activation='relu')([out, adjms])
 
-    out = GCNGraphGather(pooling='max')(out)
+    out = GCNGraphGather(pooling='sum')(out)
     out = Dense(units_dense, activation='relu')(out)
     out = Dense(units_dense, activation='relu')(out)
 
