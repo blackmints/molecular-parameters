@@ -69,7 +69,7 @@ class Trainer(object):
         self.model = getattr(m, model)(self.hyper)
         self.model.summary()
 
-    def fit(self, model, epoch, batch=128, fold=10, normalize=False, loss="mse", monitor="val_rmse", label="",
+    def fit(self, model, epoch=150, batch=128, fold=10, normalize=False, loss="mse", monitor="val_rmse", label="",
             units_conv=50, units_dense=128, num_layers=2, mode="min", use_multiprocessing=True, use_atom_symbol=True,
             use_atom_symbol_extended=False, use_atom_number=False, use_degree=False, use_hybridization=False,
             use_implicit_valence=False, use_partial_charge=False, use_formal_charge=False, use_ring_size=False,
