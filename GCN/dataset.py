@@ -312,9 +312,9 @@ class MPGenerator(Sequence):
                                                    Chem.rdchem.HybridizationType.SP3,
                                                    Chem.rdchem.HybridizationType.SP3D,
                                                    Chem.rdchem.HybridizationType.SP3D2]) if self.use_hybridization else []
-            o += one_hot(atom.GetImplicitValence(), [0, 1, 2, 3, 4]) if self.use_implicit_valence else []
+            o += one_hot(atom.GetImplicitValence(), [0, 1, 2, 3, 4, 5, 6]) if self.use_implicit_valence else []
+            o += one_hot(atom.GetFormalCharge(), [-3, -2, -1, 0, 1, 2, 3]) if self.use_degree else []
             o += [atom.GetProp("_GasteigerCharge")] if self.use_partial_charge else []
-            o += [atom.GetFormalCharge()] if self.use_formal_charge else []
             o += [atom.GetIsAromatic()] if self.use_aromaticity else []
             o += [ring.IsAtomInRingOfSize(atom_idx, 3),
                   ring.IsAtomInRingOfSize(atom_idx, 4),
@@ -322,12 +322,13 @@ class MPGenerator(Sequence):
                   ring.IsAtomInRingOfSize(atom_idx, 6),
                   ring.IsAtomInRingOfSize(atom_idx, 7),
                   ring.IsAtomInRingOfSize(atom_idx, 8)] if self.use_ring_size else []
-            o += one_hot(atom.GetChiralTag(), [Chem.rdchem.ChiralType.CHI_UNSPECIFIED,
-                                               Chem.rdchem.ChiralType.CHI_TETRAHEDRAL_CW,
-                                               Chem.rdchem.ChiralType.CHI_TETRAHEDRAL_CCW,
-                                               Chem.rdchem.ChiralType.CHI_OTHER]) if self.use_chirality else []
-            o += one_hot(atom.GetTotalNumHs(), [0, 1, 2, 3, 4, 5, 6]) if self.use_num_hydrogen else []
+            o += one_hot(atom.GetTotalNumHs(), [0, 1, 2, 3, 4]) if self.use_num_hydrogen else []
 
+            if self.use_chirality:
+                try:
+                    o += one_hot(atom.GetProp('_CIPCode'), ["R", "S"]) + [atom.HasProp("_ChiralityPossible")]
+                except:
+                    o += [False, False] + [atom.HasProp("_ChiralityPossible")]
             if self.use_hydrogen_bonding:
                 o += [atom_idx in hydrogen_donor_match]
                 o += [atom_idx in hydrogen_acceptor_match]
