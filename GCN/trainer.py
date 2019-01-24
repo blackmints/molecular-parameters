@@ -118,8 +118,8 @@ class Trainer(object):
             callbacks += [Tensorboard(log_dir=tb_path, write_graph=False, histogram_freq=0, write_images=True),
                           ModelCheckpoint(tb_path + "{epoch:01d}-{" + monitor + ":.3f}.hdf5", monitor=monitor,
                                           save_weights_only=True, save_best_only=True, period=1, mode=mode),
-                          EarlyStopping(patience=10),
-                          ReduceLROnPlateau(monitor="val_loss", factor=0.9, patience=5, min_lr=0.0005)]
+                          EarlyStopping(patience=15),
+                          ReduceLROnPlateau(monitor="val_loss", factor=0.9, patience=10, min_lr=0.0005)]
 
             # 5. Fit
             self.model.fit_generator(self.data.generator("train"), epochs=epoch,
