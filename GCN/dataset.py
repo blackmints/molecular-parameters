@@ -91,7 +91,7 @@ class Dataset(object):
             self.max_atoms = 130
 
         elif self.dataset == "tox21":
-            target_name = ["NR-Aromatase", "NR-AR", "NR-AR-LBD", "NR-ER", "NR-ER-LBD", "NR-PPAR-gamma", "NR-AhR",
+            self.target_name = ["NR-Aromatase", "NR-AR", "NR-AR-LBD", "NR-ER", "NR-ER-LBD", "NR-PPAR-gamma", "NR-AhR",
                            "SR-ARE", "SR-ATAD5", "SR-HSE", "SR-MMP", "SR-p53"]
 
         else:
@@ -104,7 +104,7 @@ class Dataset(object):
         for mol in mols:
             if mol is not None:
                 if type(self.target_name) is list:
-                    y.append([float(mol.GetProp(t)) if t in mol.GetPropNames() else -1 for t in target_name])
+                    y.append([float(mol.GetProp(t)) if t in mol.GetPropNames() else -1 for t in self.target_name])
                     self.outputs = len(self.target_name)
 
                 elif self.target_name in mol.GetPropNames():
