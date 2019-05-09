@@ -1,10 +1,10 @@
 import os
 
-os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 from GCN.trainer import Trainer
 
 if __name__ == "__main__":
-    trainer = Trainer("delaney_no_common")
+    trainer = Trainer("freesolv_no_common")
 
     hyperparameters = {"epoch": 150, "batch": 8, "fold": 30, "normalize": True, "units_conv": 128, "units_dense": 128,
                        "num_layers": 2, "loss": "mse", "monitor": "val_rmse", "label": "best_fs",
@@ -29,4 +29,3 @@ if __name__ == "__main__":
                 "use_acid_base": True, "use_aromaticity": True, "use_chirality": True, "use_num_hydrogen": True}
 
     trainer.fit("GCN", **hyperparameters, **features)
-
