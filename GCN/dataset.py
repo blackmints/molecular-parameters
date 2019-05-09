@@ -82,7 +82,7 @@ class Dataset(object):
 
     def load_dataset(self):
         # Dataset parameters
-        if self.dataset == "bace_reg" or self.dataset == "delaney" or self.dataset == "freesolv":
+        if self.dataset == "bace_reg" or "delaney" in self.dataset or "freesolv" in self.dataset:
             self.task = "regression"
             self.target_name = "target"
 
